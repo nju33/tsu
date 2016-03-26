@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Tsu.js</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <button id="success">success</button>
+  <button id="error">error</button>
+  <script src="tsu.js"></script>
+  <script>
+    var log = new Tsu('label', {});
+    document.getElementById('success').addEventListener('click', function() {
+      log.add('success');
+    });
+    document.getElementById('error').addEventListener('click', function() {
+      log.add('error');
+    });
+  </script>
+</body>
+</html>
