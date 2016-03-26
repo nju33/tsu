@@ -7,7 +7,7 @@
     "build": "rollup -c",
     "prestart": "npm run build",
     "start": "chokidar lib/tsu.js -c 'npm run build'",
-    "prepublish": "uglifyjs dist/tsu.js -o dist/tsu.min.js -c --comments all"
+    "prepublish": "uglifyjs dist/tsu.js -o dist/tsu.min.js -cm --comments all"
   },
   "repository": {
     "type": "git",
