@@ -7,15 +7,16 @@
 </head>
 <body>
   <button id="success">success</button>
-  <button id="error">error</button>
+  <button id="danger">error</button>
   <script src="tsu.js"></script>
   <script>
-    var log = new Tsu('label', {});
+    var success = new Tsu('success', {color: '#5cb85c'});
+    var danger = new Tsu('danger', {color: '#d9534f'});
     document.getElementById('success').addEventListener('click', function() {
-      log.add('success');
+      success.add('success');
     });
-    document.getElementById('error').addEventListener('click', function() {
-      log.add('error');
+    document.getElementById('danger').addEventListener('click', function() {
+      danger.add('danger');
     });
   </script>
 </body>
