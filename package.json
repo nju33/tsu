@@ -7,7 +7,9 @@
     "build": "rollup -c",
     "prestart": "npm run build",
     "start": "chokidar lib/tsu.js -c 'npm run build'",
-    "prepublish": "uglifyjs dist/tsu.js -o dist/tsu.min.js -cm --comments all"
+    "prepublish": "uglifyjs dist/tsu.js -o dist/tsu.min.js -cm --comments all",
+    "serve": "browser-sync start --server --port 3333",
+    "test": "nightwatch -t test/modules/*"
   },
   "repository": {
     "type": "git",
@@ -23,8 +25,13 @@
   },
   "homepage": "https://github.com/totora0155/tsu.js#readme",
   "devDependencies": {
+    "browser-sync": "^2.11.2",
     "chokidar-cli": "^1.2.0",
+    "chromedriver": "^2.21.2",
+    "nightwatch": "^0.8.18",
     "rollup": "^0.25.6",
+    "selenium-server-standalone-jar": "^2.53.0",
+    "selenium-webdriver": "^2.53.1",
     "uglify-js": "^2.6.2"
   }
 }
