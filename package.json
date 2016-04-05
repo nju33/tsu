@@ -9,7 +9,7 @@
     "start": "chokidar lib/tsu.js -c 'npm run build'",
     "prepublish": "uglifyjs dist/tsu.js -o dist/tsu.min.js -cm --comments all",
     "serve": "browser-sync start --server --port 3333",
-    "test": "nightwatch --test test/modules/*"
+    "test": "nightwatch -t test/modules/*"
   },
   "repository": {
     "type": "git",

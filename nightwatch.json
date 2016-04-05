@@ -1,7 +1,7 @@
 {
   "src_folders" : ["test"],
   "selenium" : {
-    "start_process" : false,
+    "start_process" : true,
     "server_path" : "node_modules/selenium-server-standalone-jar/jar/selenium-server-standalone-2.53.0.jar",
     "log_path" : "",
     "host" : "127.0.0.1",
@@ -12,8 +12,7 @@
   },
   "test_settings" : {
     "default" : {
-      "launch_url" : "http://localhost:3333/test/fixtures/",
-      "selenium_port"  : 3333,
+      "selenium_port"  : 4444,
       "selenium_host"  : "127.0.0.1",
       "silent": true  ,
       "desiredCapabilities": {
