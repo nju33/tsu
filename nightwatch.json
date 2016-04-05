@@ -15,7 +15,11 @@
       "launch_url" : "http://localhost:3333/test/fixtures/",
       "selenium_port"  : 3333,
       "selenium_host"  : "127.0.0.1",
-      "silent": true 
+      "silent": true  ,
+      "desiredCapabilities": {
+        "browserName": "chrome",
+        "javascriptEnabled": true
+      }
     }
   }
 }
