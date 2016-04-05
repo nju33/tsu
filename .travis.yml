@@ -11,9 +11,6 @@ before_script:
   - sleep 3
   - npm run serve &
   - sleep 5
-  - wget -O https://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.0.jar
-  - mkdir bin
-  - mv selenium-server-standalone-2.53.0.jar bin/selenium-server-standalone-2.53.0.jar
 script:
   - npm run build
   - npm test
