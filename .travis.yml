@@ -1,0 +1,19 @@
+sudo: false
+language: node_js
+node_js:
+  - "stable"
+  - "4.4.1"
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  # set the xvfb screen size to 1280x1024x16
+  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+  - sleep 3
+  - npm run serve &
+  - sleep 5
+  - wget -O https://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.0.jar
+  - mkdir bin
+  - mv selenium-server-standalone-2.53.0.jar bin/selenium-server-standalone-2.53.0.jar
+script:
+  - npm run build
+  - npm test
