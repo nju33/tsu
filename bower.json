@@ -1,0 +1,22 @@
+{
+  "name": "tsu.js",
+  "version": "0.1.0",
+  "description": "Just a notification in Vanilla",
+  "main": "dist/tsu.js",
+  "authors": [
+    "nju33"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "notify"
+  ],
+  "homepage": "https://github.com/totora0155/tsu.js",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
