@@ -11,3 +11,8 @@ test('Throw for size opt', (t) => {
 test('Throw for label opt', (t) => {
   t.throws(() => new Tsu('test', {label: 'string'}));
 });
+
+test('Throw for position opt', (t) => {
+  Tsu.config.position = 'somewhere';
+  t.throws(() => new Tsu('test'));
+})

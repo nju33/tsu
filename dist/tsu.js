@@ -16,7 +16,8 @@
     width: '15em',
     duration: 200,
     timeout: 2000,
-    clickEvent: false
+    clickEvent: false,
+    position: 'center'
   };
 
   function Tsu(label, opts) {
@@ -33,14 +34,14 @@
 
     if (opts.size != null) {
       if (typeof opts.size !== 'number') {
-        throw Error('Please `size` specify a Number');
+        throw Error('`size` specify a Number');
       }
       this.opts.size = opts.size;
     }
 
     if (opts.label != null) {
       if (typeof opts.label !== 'boolean') {
-        throw Error('Please `label` specify a Boolean');
+        throw Error('`label` specify a Boolean');
       }
       this.opts.label = opts.label;
     }
@@ -157,8 +158,18 @@
     }
     var sec4Slower = Tsu.config.duration / 1000;
     var sec4Faster = sec4Slower / 1.6;
+    var position = void 0;
+    if (Tsu.config.position === 'left') {
+      position = 'left: 1em;';
+    } else if (Tsu.config.position === 'right') {
+      position = 'right: 1em;';
+    } else if (Tsu.config.position === 'center') {
+      position = 'right: 50%;\n                -ms-transform: translateX(50%);\n                -webkit-transform: translateX(50%);\n                transform: translateX(50%);';
+    } else {
+      throw Error('`position` specify one of the `left`, `center`, `right`');
+    }
 
-    var css = '.tsu__box {' + 'position: fixed;' + 'right: 50%;' + 'top: 1em;' + 'min-width: ' + Tsu.config.width + ';' + '-ms-transform: translateX(50%);' + '-webkit-transform: translateX(50%);' + 'transform: translateX(50%);' + 'list-style: none;' + '}' + '.tsu__log {' + 'overflow:hidden;' + 'margin: .5em;' + '-webkit-transition:' + 'height ' + sec4Slower + 's ' + easeOutBack + ',' + 'opacity ' + sec4Faster + 's ease-out;' + 'transition:' + 'height ' + sec4Slower + 's ' + easeOutBack + ',' + 'opacity ' + sec4Faster + 's ease-out;' + 'height: 0;' + 'opacity: 0;' + '-webkit-user-select: none;' + '-moz-user-select: none;' + '-ms-user-select: none;' + 'user-select: none;' + '}' + '.tsu__inner {' + 'position: relative;' + 'padding: .5em;' + '-webkit-transition: top ' + sec4Faster + 's ease-out;' + 'transition: top ' + sec4Faster + 's ease-out;' + 'top: 0;' + '}' + '.tsu__label {' + 'padding: .3em .5em;' + 'margin-right: .5em;' + 'border-radius: 7px;' + 'background: hsla(0, 100%, 100%, .3);' + '}';
+    var css = '.tsu__box {' + 'position: fixed;' + 'top: 1em;' + 'min-width: ' + Tsu.config.width + ';' + position + 'list-style: none;' + '}' + '.tsu__log {' + 'overflow:hidden;' + 'margin: .5em;' + '-webkit-transition:' + 'height ' + sec4Slower + 's ' + easeOutBack + ',' + 'opacity ' + sec4Faster + 's ease-out;' + 'transition:' + 'height ' + sec4Slower + 's ' + easeOutBack + ',' + 'opacity ' + sec4Faster + 's ease-out;' + 'height: 0;' + 'opacity: 0;' + '-webkit-user-select: none;' + '-moz-user-select: none;' + '-ms-user-select: none;' + 'user-select: none;' + '}' + '.tsu__inner {' + 'position: relative;' + 'padding: .5em;' + '-webkit-transition: top ' + sec4Faster + 's ease-out;' + 'transition: top ' + sec4Faster + 's ease-out;' + 'top: 0;' + '}' + '.tsu__label {' + 'padding: .3em .5em;' + 'margin-right: .5em;' + 'border-radius: 7px;' + 'background: hsla(0, 100%, 100%, .3);' + '}';
     style.innerText = css;
     document.head.insertBefore(style, document.head.children[0]);
   }
