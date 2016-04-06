@@ -10,19 +10,20 @@
 }(this, function () { 'use strict';
 
   var box = null;
-   var state = [];
+  var state = [];
 
-   Tsu.config = {
-     width: '15em',
-     timeout: 2000,
-     clickEvent: false,
-   }
+  Tsu.config = {
+    width: '15em',
+    duration: 200,
+    timeout: 2000,
+    clickEvent: false
+  };
 
   function Tsu(label, opts) {
     this.label = label;
     this.opts = {
       color: '#fff',
-      size: 3,
+      size: 3
     };
 
     if (opts.color != null) {
@@ -39,7 +40,7 @@
 
   Tsu.prototype.add = function add(msg) {
     if (!box) {
-      box = init();
+      box = init.call(this);
     }
 
     var log = create(this.label, msg, this.opts);
@@ -56,17 +57,17 @@
 
     if (Tsu.config.timeout) {
       try {
-        setTimeout(function() {
+        setTimeout(function () {
           remove(log, 'hide');
         }, Tsu.config.timeout);
       } catch (e) {
         throw Error(e);
       }
     }
-  }
+  };
 
   function init() {
-    injectStyle();
+    injectStyle.call(this);
     var box = document.createElement('ul');
     box.className = 'tsu__box';
     document.body.appendChild(box);
@@ -76,16 +77,17 @@
   function create(label, msg, opts) {
     var log = document.createElement('li');
     log.className = 'tsu__log tsu__' + label;
-    log.innerHTML =  '<div class="tsu__inner">' +
-                       '<span class="tsu__label">' + label + '</span>' +
-                       '<span class="tsu__message">' + msg + '</span>' +
-                     '</div>';
+    log.innerHTML = '<div class="tsu__inner">' + '<span class="tsu__label">' + label + '</span>' + '<span class="tsu__message">' + msg + '</span>' + '</div>';
     log.children[0].style.background = opts.color;
     return log;
   }
 
   function insert(el) {
-    box.insertBefore(el, box.children[0]);
+    try {
+      box.insertBefore(el, box.children[0]);
+    } catch (e) {
+      box.appendChild(el);
+    }
     el.setAttribute('data-height', el.children[0].clientHeight);
     state.unshift(el);
   }
@@ -98,7 +100,7 @@
 
   function remove(el, type) {
     if (type == null) {
-      type = 'fall'
+      type = 'fall';
     }
 
     switch (type) {
@@ -123,7 +125,7 @@
     var height = el.getAttribute('data-height');
     el.style.opacity = 0;
     el.children[0].style.top = height + 'px';
-    setTimeout(function() {
+    setTimeout(function () {
       if (el.parentNode) {
         el.parentNode.removeChild(el);
       }
@@ -138,46 +140,13 @@
   function injectStyle() {
     var style = document.createElement('style');
     var easeOutBack = 'cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-    var css = '.tsu__box {' +
-                'position: fixed;' +
-                'right: 50%;' +
-                'top: 1em;' +
-                'min-width: ' + Tsu.config.width + ';' +
-                '-ms-transform: translateX(50%);' +
-                '-webkit-transform: translateX(50%);' +
-                'transform: translateX(50%);' +
-                'list-style: none;' +
-              '}' +
-              '.tsu__log {' +
-                'overflow:hidden;' +
-                'margin: .5em;' +
-                '-webkit-transition:' +
-                  'height .2s ' + easeOutBack + ',' +
-                  'opacity .125s ease-out;' +
-                'transition:' +
-                  'height .2s ' + easeOutBack + ',' +
-                  'opacity .125s ease-out;' +
-                'height: 0;' +
-                'opacity: 0;' +
-                '-webkit-user-select: none;' +
-                '-moz-user-select: none;' +
-                '-ms-user-select: none;' +
-                'user-select: none;' +
-              '}' +
-              '.tsu__inner {' +
-                'position: relative;' +
-                'padding: .5em;' +
-                '-webkit-transition: top .125s ease-out;' +
-                'transition: top .125s ease-out;' +
-                'top: 0;' +
-              '}' +
-              '.tsu__label {' +
-                'padding: .3em .5em;' +
-                'margin-right: .5em;' +
-                'border-radius: 7px;' +
-                'background: hsla(0, 100%, 100%, .3);' +
-              '}'
-              ;
+    if (typeof Tsu.config.duration !== 'number' || Tsu.config.duration < 0) {
+      throw Error('Please `Tsu.config.duration` specify a number value');
+    }
+    var sec4Slower = Tsu.config.duration / 1000;
+    var sec4Faster = sec4Slower / 1.6;
+
+    var css = '.tsu__box {' + 'position: fixed;' + 'right: 50%;' + 'top: 1em;' + 'min-width: ' + Tsu.config.width + ';' + '-ms-transform: translateX(50%);' + '-webkit-transform: translateX(50%);' + 'transform: translateX(50%);' + 'list-style: none;' + '}' + '.tsu__log {' + 'overflow:hidden;' + 'margin: .5em;' + '-webkit-transition:' + 'height ' + sec4Slower + 's ' + easeOutBack + ',' + 'opacity ' + sec4Faster + 's ease-out;' + 'transition:' + 'height ' + sec4Slower + 's ' + easeOutBack + ',' + 'opacity ' + sec4Faster + 's ease-out;' + 'height: 0;' + 'opacity: 0;' + '-webkit-user-select: none;' + '-moz-user-select: none;' + '-ms-user-select: none;' + 'user-select: none;' + '}' + '.tsu__inner {' + 'position: relative;' + 'padding: .5em;' + '-webkit-transition: top ' + sec4Faster + 's ease-out;' + 'transition: top ' + sec4Faster + 's ease-out;' + 'top: 0;' + '}' + '.tsu__label {' + 'padding: .3em .5em;' + 'margin-right: .5em;' + 'border-radius: 7px;' + 'background: hsla(0, 100%, 100%, .3);' + '}';
     style.innerText = css;
     document.head.insertBefore(style, document.head.children[0]);
   }
