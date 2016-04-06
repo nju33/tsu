@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "A just notification in Vanilla",
   "main": "dist/tsu.js",
+  "jsnext:main": "es/tsu.js",
   "scripts": {
     "build": "rollup -c rollup.umd.config.js",
     "minify": "uglifyjs dist/tsu.js -o dist/tsu.min.js -cm --comments all",
@@ -28,12 +29,15 @@
   "homepage": "https://github.com/totora0155/tsu.js#readme",
   "devDependencies": {
     "ava": "^0.13.0",
+    "babel-preset-es2015-rollup": "^1.1.1",
     "browser-sync": "^2.11.2",
     "chokidar-cli": "^1.2.0",
     "chromedriver": "^2.21.2",
     "nightwatch": "^0.8.18",
     "rollup": "^0.25.6",
+    "rollup-plugin-babel": "^2.4.0",
     "selenium-server-standalone-jar": "^2.53.0",
+    "sinon": "^1.17.3",
     "uglify-js": "^2.6.2",
     "xo": "^0.13.0"
   },
