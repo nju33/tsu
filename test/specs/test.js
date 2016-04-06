@@ -16,3 +16,13 @@ test('Throw for position opt', t => {
   Tsu.config.position = 'somewhere';
   t.throws(() => new Tsu('test'));
 });
+
+test('Throw for duration opt', t => {
+  Tsu.config.duration = 'string';
+  t.throws(() => new Tsu('test'));
+});
+
+test('Throw for timeout opt', t => {
+  Tsu.config.timeout = 'string';
+  t.throws(() => new Tsu('test'));
+});
