@@ -4,10 +4,12 @@
   "description": "A just notification in Vanilla",
   "main": "dist/tsu.js",
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c rollup.umd.config.js",
+    "minify": "uglifyjs dist/tsu.js -o dist/tsu.min.js -cm --comments all",
     "prestart": "npm run build",
     "start": "chokidar lib/tsu.js -c 'npm run build'",
-    "prepublish": "uglifyjs dist/tsu.js -o dist/tsu.min.js -cm --comments all",
+    "prepublish": "rollup -c rollup.es6.config.js",
+    "postpublish": "rm -rf es/",
     "serve": "browser-sync start --server --port 3333",
     "test": "nightwatch -t test/modules/*"
   },
@@ -31,7 +33,6 @@
     "nightwatch": "^0.8.18",
     "rollup": "^0.25.6",
     "selenium-server-standalone-jar": "^2.53.0",
-    "selenium-webdriver": "^2.53.1",
     "uglify-js": "^2.6.2"
   }
 }

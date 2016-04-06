@@ -1,3 +1,4 @@
+import babel from 'rollup-plugin-babel';
 const banner = `
 /*!
  * Copyright 2016, nju33
@@ -12,4 +13,6 @@ export default {
   format: 'umd',
   dest: 'dist/tsu.js',
   moduleName: 'Tsu',
-};
+  plugins: [
+    babel()
+  ]
