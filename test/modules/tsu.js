@@ -24,6 +24,14 @@ module.exports = {
         .pause(400)
           .assert.elementNotPresent('.tsu__success:nth-child(4)')
 
+      .refresh()
+        .click('#success')
+          .pause(1050)
+            .assert.visible('.tsu__success')
+           // 2100
+          .pause(1050)
+            .assert.hidden('.tsu__success')
+
       .end();
   }
 };
