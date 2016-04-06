@@ -6,12 +6,21 @@
 
 Just a notification in Vanilla
 
-## Usage
-
-in Node
-
+## Install
 ```
 npm i -S tsu.js
+```
+
+## Usage
+
+in CommonJS
+```
+const Tsu = require('tsu.js');
+```
+
+in ES6
+```
+import Tsu from 'tsu.js';
 ```
 
 in Browsers
