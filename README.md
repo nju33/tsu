@@ -7,26 +7,34 @@
 Just a notification in Vanilla
 
 ## Install
+
 ```
 npm i -S tsu.js
+```
+
+or
+
+```
+bower i -S tsu.js
 ```
 
 ## Usage
 
 in CommonJS
-```
+```js
 const Tsu = require('tsu.js');
 ```
 
 in ES6
-```
+```js
 import Tsu from 'tsu.js';
 ```
 
 in Browsers
 
-```
+```html
 <script src="tsu.js"></script>
+<!-- <script src="bower_components/tsu.js/dist/tsu.min.js"></script> -->
 ```
 
 ## Example
