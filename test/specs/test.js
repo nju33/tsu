@@ -1,6 +1,5 @@
 import Tsu from '../..';
 import test from 'ava';
-import sinon from 'sinon';
 import jsdom from 'jsdom';
 
 global.document = jsdom.jsdom();
