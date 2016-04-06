@@ -9,8 +9,8 @@
   (global.Tsu = factory());
 }(this, function () { 'use strict';
 
-  var box = null;
   var state = [];
+  var box = null;
 
   Tsu.config = {
     width: '15em',
@@ -28,28 +28,26 @@
       label: true
     };
 
-    if (opts.color != null) {
+    if (opts.color !== null || typeof opts.color !== 'undefined') {
       this.opts.color = opts.color;
     }
 
-    if (opts.size != null) {
-      if (typeof opts.size !== 'number') {
-        throw Error('`size` specify a Number');
-      }
+    if (typeof opts.size === 'number') {
       this.opts.size = opts.size;
+    } else if (typeof opts.size !== 'undefined') {
+      throw Error('`size` specify a Number');
     }
 
-    if (opts.label != null) {
-      if (typeof opts.label !== 'boolean') {
-        throw Error('`label` specify a Boolean');
-      }
+    if (opts.label === 'boolean') {
       this.opts.label = opts.label;
+    } else if (typeof opts.label !== 'undefined') {
+      throw Error('`label` specify a Boolean');
     }
   }
 
   Tsu.prototype.add = function add(msg) {
     if (!box) {
-      box = init.call(this);
+      box = init();
     }
 
     var log = create(this.label, msg, this.opts);
@@ -67,7 +65,7 @@
     if (Tsu.config.timeout) {
       try {
         setTimeout(function () {
-          remove(log, 'hide');
+          return remove(log, 'hide');
         }, Tsu.config.timeout);
       } catch (e) {
         throw Error(e);
@@ -76,7 +74,7 @@
   };
 
   function init() {
-    injectStyle.call(this);
+    injectStyle();
     var box = document.createElement('ul');
     box.className = 'tsu__box';
     document.body.appendChild(box);
@@ -90,7 +88,7 @@
       labelEl = '<span class="tsu__label">' + label + '</span>';
     }
     log.className = 'tsu__log tsu__' + label;
-    log.innerHTML = '<div class="tsu__inner">' + labelEl + '<span class="tsu__message">' + msg + '</span>' + '</div>';
+    log.innerHTML = '<div class="tsu__inner">\n                     ' + labelEl + '\n                     <span class="tsu__message">' + msg + '</span>\n                   </div>';
     log.children[0].style.background = opts.color;
     return log;
   }
@@ -112,7 +110,7 @@
   }
 
   function remove(el, type) {
-    if (type == null) {
+    if (type === null || typeof type === 'undefined') {
       type = 'fall';
     }
 
@@ -123,10 +121,13 @@
       case 'hide':
         hide(el);
         break;
+      default:
+        hide(el);
+        break;
     }
 
     if (Tsu.config.clickEvent) {
-      log.removeEventListener('click', handleClick, false);
+      el.removeEventListener('click', handleClick, false);
     }
   }
 
@@ -142,7 +143,7 @@
       if (el.parentNode) {
         el.parentNode.removeChild(el);
       }
-    }, 125);
+    }, Tsu.config.duration / 1000 * 1.6);
   }
 
   function hide(el) {
@@ -169,7 +170,7 @@
       throw Error('`position` specify one of the `left`, `center`, `right`');
     }
 
-    var css = '.tsu__box {' + 'position: fixed;' + 'top: 1em;' + 'min-width: ' + Tsu.config.width + ';' + position + 'list-style: none;' + '}' + '.tsu__log {' + 'overflow:hidden;' + 'margin: .5em;' + '-webkit-transition:' + 'height ' + sec4Slower + 's ' + easeOutBack + ',' + 'opacity ' + sec4Faster + 's ease-out;' + 'transition:' + 'height ' + sec4Slower + 's ' + easeOutBack + ',' + 'opacity ' + sec4Faster + 's ease-out;' + 'height: 0;' + 'opacity: 0;' + '-webkit-user-select: none;' + '-moz-user-select: none;' + '-ms-user-select: none;' + 'user-select: none;' + '}' + '.tsu__inner {' + 'position: relative;' + 'padding: .5em;' + '-webkit-transition: top ' + sec4Faster + 's ease-out;' + 'transition: top ' + sec4Faster + 's ease-out;' + 'top: 0;' + '}' + '.tsu__label {' + 'padding: .3em .5em;' + 'margin-right: .5em;' + 'border-radius: 7px;' + 'background: hsla(0, 100%, 100%, .3);' + '}';
+    var css = ['.tsu__box {', 'position: fixed;', 'top: 1em;', 'min-width: ' + Tsu.config.width + ';', '' + position, 'list-style: none;', '}', '.tsu__log {', 'overflow: hidden;', 'margin: .5em;', '-webkit-transition:', 'height ' + sec4Slower + 's ' + easeOutBack + ',', 'opacity ' + sec4Faster + 's ease-out;', 'transition:', 'height ' + sec4Slower + 's ' + easeOutBack + ',', 'opacity ' + sec4Faster + 's ease-out;', 'height: 0;', 'opacity: 0;', '-webkit-user-select: none;', '-moz-user-select: none;', '-ms-user-select: none;', 'user-select: none;', '}', '.tsu__inner {', 'position: relative;', 'padding: .5em;', '-webkit-transition: top ' + sec4Faster + 's ease-out;', 'transition: top ' + sec4Faster + 's ease-out;', 'top: 0;', '}', '.tsu__label {', 'padding: .3em .5em;', 'margin-right: .5em;', 'border-radius: 7px;', 'background: hsla(0, 100%, 100%, .3);', '}'].join('');
     style.innerText = css;
     document.head.insertBefore(style, document.head.children[0]);
   }

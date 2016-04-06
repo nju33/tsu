@@ -12,7 +12,7 @@
     "prepublish": "rollup -c rollup.es6.config.js",
     "postpublish": "rm -rf es/",
     "serve": "browser-sync start --server --port 3333",
-    "test": "nightwatch -t test/modules/*"
+    "test": "xo && ava && nightwatch -t test/modules/*"
   },
   "repository": {
     "type": "git",
@@ -47,6 +47,10 @@
     ]
   },
   "xo": {
+    "env": [
+      "node",
+      "browser"
+    ],
     "esnext": true,
     "space": 2,
     "ignores": [

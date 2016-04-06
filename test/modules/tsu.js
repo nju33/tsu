@@ -1,5 +1,5 @@
 module.exports = {
-  'Tsu.js' : function (browser) {
+  'Tsu.js': browser => {
     browser
       .url('http://localhost:3333/test/fixtures/')
         .click('#success')
