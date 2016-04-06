@@ -23,7 +23,8 @@
     this.label = label;
     this.opts = {
       color: '#fff',
-      size: 3
+      size: 3,
+      label: true
     };
 
     if (opts.color != null) {
@@ -32,9 +33,16 @@
 
     if (opts.size != null) {
       if (typeof opts.size !== 'number') {
-        throw Error('Please `size` specify a number value');
+        throw Error('Please `size` specify a Number');
       }
       this.opts.size = opts.size;
+    }
+
+    if (opts.label != null) {
+      if (typeof opts.label !== 'boolean') {
+        throw Error('Please `label` specify a Boolean');
+      }
+      this.opts.label = opts.label;
     }
   }
 
@@ -76,8 +84,12 @@
 
   function create(label, msg, opts) {
     var log = document.createElement('li');
+    var labelEl = '';
+    if (opts.label) {
+      labelEl = '<span class="tsu__label">' + label + '</span>';
+    }
     log.className = 'tsu__log tsu__' + label;
-    log.innerHTML = '<div class="tsu__inner">' + '<span class="tsu__label">' + label + '</span>' + '<span class="tsu__message">' + msg + '</span>' + '</div>';
+    log.innerHTML = '<div class="tsu__inner">' + labelEl + '<span class="tsu__message">' + msg + '</span>' + '</div>';
     log.children[0].style.background = opts.color;
     return log;
   }

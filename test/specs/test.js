@@ -5,8 +5,10 @@ import jsdom from 'jsdom';
 
 global.document = jsdom.jsdom();
 
-test('throws', (t) => {
-  const log = new Tsu('test', {color: '#333'});
+test('Throw for size opt', (t) => {
+  t.throws(() => new Tsu('test', {size: 'string'}));
+});
 
-  t.throws(log.add('test!'));
+test('Throw for label opt', (t) => {
+  t.throws(() => new Tsu('test', {label: 'string'}));
 });
