@@ -4,12 +4,13 @@ import jsdom from 'jsdom';
 
 global.document = jsdom.jsdom();
 
-test('Throw for size opt', t => {
-  t.throws(() => new Tsu('test', {size: 'string'}));
-});
-
 test('Throw for label opt', t => {
   t.throws(() => new Tsu('test', {label: 'string'}));
+});
+
+test('Throw for maxSize opt', t => {
+  Tsu.config.maxSize = 'string';
+  t.throws(() => new Tsu('test'));
 });
 
 test('Throw for position opt', t => {

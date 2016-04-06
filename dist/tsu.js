@@ -17,14 +17,14 @@
     duration: 200,
     timeout: 2000,
     clickEvent: false,
-    position: 'center'
+    position: 'center',
+    maxSize: 3
   };
 
   function Tsu(label, opts) {
     this.label = label;
     this.opts = {
       color: '#fff',
-      size: 3,
       label: true
     };
 
@@ -32,16 +32,14 @@
       this.opts.color = opts.color;
     }
 
-    if (typeof opts.size === 'number') {
-      this.opts.size = opts.size;
-    } else if (typeof opts.size !== 'undefined') {
-      throw Error('`size` specify a Number');
-    }
-
     if (opts.label === 'boolean') {
       this.opts.label = opts.label;
     } else if (typeof opts.label !== 'undefined') {
       throw Error('`label` specify a Boolean');
+    }
+
+    if (typeof Tsu.config.maxSize !== 'number' && typeof Tsu.config.maxSize !== 'undefined') {
+      throw Error('`maxSize` specify a Number');
     }
   }
 
@@ -57,7 +55,7 @@
     insert(log);
     setTimeout(show.bind(null, log), 0);
 
-    if (state.length > this.opts.size) {
+    if (state.length > Tsu.config.maxSize) {
       var target = state.pop();
       remove(target);
     }
