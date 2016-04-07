@@ -62,6 +62,28 @@ in Browsers
 
 ![Tsu.js example](https://raw.githubusercontent.com/totora0155/tsu.js/master/example.gif)
 
+## HTML
+
+[Tsu.js](https://github.com/totora0155/tsu.js) is to create like
+
+```html
+<ul class="tsu__box">
+  <li class="tsu__log tsu__success" data-height="40">
+    <div class="tsu__inner" style="background: rgb(92, 184, 92);">
+      <span class="tsu__label">success</span>
+      <span class="tsu__message">Good</span>
+    </div>
+  </li>
+  <li class="tsu__log tsu__***" data-height="40">...
+  <li class="tsu__log tsu__***" data-height="40">...
+</ul>
+```
+
+## Methods
+
+- `tsu.add(message)`  
+  To display a notification with `message`
+
 ## Options
 
 ### Global
